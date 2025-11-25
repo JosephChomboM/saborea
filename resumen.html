@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SABOREA - Resumen y Pago</title>
+<meta name="description" content="Revisa el resumen de tu reserva y completa el pago de forma segura.">
+<meta name="theme-color" content="#f27f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#f27f0d",
+                    "background-light": "#f8f7f5",
+                    "background-dark": "#221910",
+                    "foreground-light": "#181411",
+                    "foreground-dark": "#f8f7f5",
+                    "subtle-light": "#8a7560",
+                    "subtle-dark": "#a19080",
+                    "border-light": "#e6e0db",
+                    "border-dark": "#3a2d21"
+                },
+                fontFamily: {
+                    "display": ["Plus Jakarta Sans", "sans-serif"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        min-height: max(884px, 100dvh);
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
+<div class="flex flex-col min-h-screen max-w-sm mx-auto">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<a href="personaliza.html" class="p-2">
+<span class="material-symbols-outlined">arrow_back</span>
+</a>
+<h1 class="flex-1 text-lg font-bold text-center -ml-10">Resumen y pago</h1>
+</div>
+</header>
+
+<main class="flex-grow px-4 pb-40 space-y-5">
+<!-- Tu reserva -->
+<section>
+<h2 class="text-xl font-bold mb-3">Tu reserva</h2>
+<div class="bg-white dark:bg-neutral-800 rounded-xl p-4 divide-y divide-border-light dark:divide-border-dark">
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Tour</span>
+<span class="font-bold text-sm text-right">Tour Criollo en Barranco</span>
+</div>
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Fecha</span>
+<span class="font-bold text-sm">Miércoles, 10 de diciembre</span>
+</div>
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Horario</span>
+<span class="font-bold text-sm">Mañana (10:00 AM)</span>
+</div>
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Idioma</span>
+<span class="font-bold text-sm">Español</span>
+</div>
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Grupo</span>
+<span class="font-bold text-sm">Grupo pequeño (2 personas)</span>
+</div>
+<div class="flex justify-between items-center py-2.5">
+<span class="text-subtle-light dark:text-subtle-dark text-sm">Dieta</span>
+<span class="font-bold text-sm">Sin restricciones</span>
+</div>
+</div>
+</section>
+
+<!-- Itinerario -->
+<section>
+<h2 class="text-xl font-bold mb-3">Itinerario</h2>
+<div class="bg-white dark:bg-neutral-800 rounded-xl p-4">
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<div class="mt-0.5 flex-shrink-0 w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">
+    <span class="material-symbols-outlined text-sm">location_on</span>
+</div>
+<div>
+<p class="font-bold text-sm">Punto de encuentro</p>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Plaza San Francisco, Barranco</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="mt-0.5 flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">1</div>
+<div>
+<p class="font-bold text-sm">Cevichería El Muelle</p>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Ceviche tradicional y chicha morada</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="mt-0.5 flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">2</div>
+<div>
+<p class="font-bold text-sm">Anticuchería Doña Julia</p>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Anticuchos y papas a la huancaína</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="mt-0.5 flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">3</div>
+<div>
+<p class="font-bold text-sm">Bar El Capitán</p>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Pisco Sour de despedida</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+
+<!-- Precio final -->
+<section>
+<div class="flex justify-between items-center bg-primary/10 rounded-xl p-4">
+<div>
+<p class="font-bold">Precio final</p>
+<p class="text-xs text-subtle-light dark:text-subtle-dark">Sin cargos ocultos · Todo incluido</p>
+</div>
+<p class="text-2xl font-bold text-primary">USD 110</p>
+</div>
+</section>
+
+<!-- Método de pago -->
+<section>
+<h2 class="text-xl font-bold mb-3">Método de pago</h2>
+<div class="space-y-2">
+<label class="flex items-center justify-between p-4 rounded-xl border-2 border-border-light dark:border-border-dark bg-white dark:bg-neutral-800 has-[:checked]:border-primary has-[:checked]:bg-primary/10 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-subtle-light dark:text-subtle-dark">credit_card</span>
+<span class="font-bold text-sm">Tarjeta de crédito/débito</span>
+</div>
+<input class="sr-only peer" name="payment_method" type="radio" value="card" checked/>
+<div class="w-5 h-5 rounded-full border-2 border-border-light dark:border-border-dark peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-all">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl border-2 border-border-light dark:border-border-dark bg-white dark:bg-neutral-800 has-[:checked]:border-primary has-[:checked]:bg-primary/10 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-subtle-light dark:text-subtle-dark">account_balance_wallet</span>
+<span class="font-bold text-sm">PayPal</span>
+</div>
+<input class="sr-only peer" name="payment_method" type="radio" value="paypal"/>
+<div class="w-5 h-5 rounded-full border-2 border-border-light dark:border-border-dark peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-all">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl border-2 border-border-light dark:border-border-dark bg-white dark:bg-neutral-800 has-[:checked]:border-primary has-[:checked]:bg-primary/10 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-subtle-light dark:text-subtle-dark">payments</span>
+<span class="font-bold text-sm">Stripe</span>
+</div>
+<input class="sr-only peer" name="payment_method" type="radio" value="stripe"/>
+<div class="w-5 h-5 rounded-full border-2 border-border-light dark:border-border-dark peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-all">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+</label>
+</div>
+</section>
+
+<!-- Política de cancelación -->
+<div class="text-center">
+<a class="text-xs text-subtle-light dark:text-subtle-dark underline hover:text-primary transition-colors" href="#">Política de cancelación y reembolso</a>
+</div>
+</main>
+
+<!-- Botón de pago -->
+<div class="fixed bottom-16 left-0 right-0 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-t border-border-light dark:border-border-dark z-10">
+<div class="max-w-sm mx-auto px-4 pt-3 pb-3">
+<a href="confirmacion.html" class="block w-full bg-primary text-white font-bold py-4 rounded-xl text-lg shadow-lg shadow-primary/30 hover:bg-primary/90 transition-colors text-center">
+    Confirmar pago
+</a>
+</div>
+</div>
+
+<!-- Footer con navegación -->
+<footer class="fixed bottom-0 left-0 right-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-border-light dark:border-border-dark z-10">
+<nav class="max-w-sm mx-auto flex justify-around p-2">
+<a class="flex flex-col items-center justify-center w-1/4 text-subtle-light dark:text-subtle-dark hover:text-primary transition-colors" href="home.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-subtle-light dark:text-subtle-dark hover:text-primary transition-colors" href="mapa.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">map</span>
+<span class="text-xs">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-subtle-light dark:text-subtle-dark hover:text-primary transition-colors" href="confirmacion.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">bookmark</span>
+<span class="text-xs">Reservas</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-subtle-light dark:text-subtle-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs">Perfil</span>
+</a>
+</nav>
+</footer>
+</div>
+</body></html>

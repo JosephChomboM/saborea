@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABOREA - Food Tours | Prototipo Mobile</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SABOREA - Descubre los mejores tours gastronómicos. Reserva experiencias culinarias auténticas con guías locales expertos.">
+    <meta name="keywords" content="food tours, gastronomía, tours culinarios, experiencias gastronómicas, comida local">
+    <meta name="author" content="SABOREA">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SABOREA - Food Tours">
+    <meta property="og:description" content="Descubre los mejores tours gastronómicos con guías locales expertos.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=630&fit=crop">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SABOREA - Food Tours">
+    <meta name="twitter:description" content="Descubre los mejores tours gastronómicos con guías locales expertos.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#f27f0d">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #f27f0d;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(242, 127, 13, 0.2);
+            color: #f27f0d;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        /* Phone Frame */
+        .phone-container {
+            position: relative;
+        }
+        .phone-frame {
+            background: #1c1c1e;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 3px #2c2c2e,
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(242, 127, 13, 0.1);
+        }
+        .phone-notch {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 28px;
+            background: #1c1c1e;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+        .phone-notch::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #3a3a3c;
+            border-radius: 3px;
+        }
+        .phone-screen {
+            width: 375px;
+            height: 700px;
+            border-radius: 40px;
+            overflow: hidden;
+            background: #f8f7f5;
+        }
+        .phone-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Navigation Pills */
+        .nav-pills {
+            display: flex;
+            gap: 8px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 400px;
+        }
+        .nav-pill {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-pill:hover {
+            background: #f27f0d;
+            transform: translateY(-2px);
+        }
+        .nav-pill.active {
+            background: #f27f0d;
+        }
+        .nav-pill .material-symbols-outlined {
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+        .footer a {
+            color: #f27f0d;
+            text-decoration: none;
+        }
+        
+        /* Mobile: Show content directly */
+        @media (max-width: 500px) {
+            body {
+                padding: 0;
+                background: #f8f7f5;
+            }
+            .header, .nav-pills, .footer, .phone-frame, .phone-notch {
+                display: none;
+            }
+            .phone-container {
+                width: 100%;
+                height: 100vh;
+            }
+            .phone-screen {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>SABOREA</h1>
+        <p>Prototipo de App para Tours Gastronómicos</p>
+        <span class="badge">Mobile Prototype</span>
+    </header>
+    
+    <div class="phone-container">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <iframe src="home.html" id="appFrame" title="SABOREA App"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="nav-pills">
+        <a href="#" class="nav-pill active" onclick="loadPage('home.html')">
+            <span class="material-symbols-outlined">home</span>
+            Home
+        </a>
+        <a href="#" class="nav-pill" onclick="loadPage('detalle.html')">
+            <span class="material-symbols-outlined">restaurant</span>
+            Tour
+        </a>
+        <a href="#" class="nav-pill" onclick="loadPage('personaliza.html')">
+            <span class="material-symbols-outlined">tune</span>
+            Personalizar
+        </a>
+        <a href="#" class="nav-pill" onclick="loadPage('mapa.html')">
+            <span class="material-symbols-outlined">map</span>
+            Mapa
+        </a>
+        <a href="#" class="nav-pill" onclick="loadPage('resumen.html')">
+            <span class="material-symbols-outlined">receipt_long</span>
+            Resumen
+        </a>
+        <a href="#" class="nav-pill" onclick="loadPage('confirmacion.html')">
+            <span class="material-symbols-outlined">check_circle</span>
+            Confirmación
+        </a>
+    </nav>
+    
+    <footer class="footer">
+    </footer>
+    
+    <script>
+        function loadPage(page) {
+            document.getElementById('appFrame').src = page;
+            // Update active pill
+            document.querySelectorAll('.nav-pill').forEach(pill => pill.classList.remove('active'));
+            event.target.closest('.nav-pill').classList.add('active');
+        }
+    </script>
+</body>
+</html>

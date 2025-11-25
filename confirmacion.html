@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SABOREA - Confirmación de Reserva</title>
+<meta name="description" content="¡Tu reserva ha sido confirmada! Revisa los detalles de tu tour gastronómico.">
+<meta name="theme-color" content="#f27f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f27f0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#221910",
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col justify-between max-w-sm mx-auto">
+<div class="flex-grow">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<a href="home.html" class="text-background-dark dark:text-background-light">
+<span class="material-symbols-outlined">close</span>
+</a>
+<h1 class="flex-1 text-center text-lg font-bold text-background-dark dark:text-background-light pr-8">Confirmación</h1>
+</div>
+</header>
+
+<main class="pb-24 px-4">
+<!-- Mensaje de éxito -->
+<div class="text-center py-6">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-4">
+    <span class="material-symbols-outlined text-5xl text-green-500">check_circle</span>
+</div>
+<h2 class="text-2xl font-bold text-background-dark dark:text-background-light">¡Reserva Confirmada!</h2>
+<p class="text-background-dark/60 dark:text-background-light/60 mt-1">Tu tour ha sido agendado con éxito.</p>
+<div class="mt-4 inline-block bg-background-dark/5 dark:bg-background-light/5 rounded-lg px-4 py-2">
+    <p class="text-xs text-background-dark/60 dark:text-background-light/60">Número de reserva</p>
+    <p class="text-lg font-bold text-background-dark dark:text-background-light tracking-widest">#SAB-2025-1210</p>
+</div>
+</div>
+
+<!-- Punto de encuentro -->
+<div class="bg-white dark:bg-zinc-800 rounded-xl p-4 mb-4 shadow-sm">
+<h3 class="text-lg font-bold text-background-dark dark:text-background-light mb-3 flex items-center gap-2">
+    <span class="material-symbols-outlined text-red-500">location_on</span>
+    Punto de encuentro
+</h3>
+<div class="flex items-center justify-between">
+    <div>
+        <p class="font-bold text-background-dark dark:text-background-light">Plaza San Francisco</p>
+        <p class="text-sm text-background-dark/60 dark:text-background-light/60">Barranco, Lima, Perú</p>
+        <p class="text-sm text-primary font-medium mt-1">Miércoles 10 dic · 10:00 AM</p>
+    </div>
+    <a href="#" class="flex items-center gap-2 bg-primary text-white rounded-full px-4 py-2 font-bold text-sm hover:bg-primary/90 transition-colors">
+        <span class="material-symbols-outlined text-lg">navigation</span>
+        Navegar
+    </a>
+</div>
+</div>
+
+<!-- Tu guía -->
+<div class="bg-white dark:bg-zinc-800 rounded-xl p-4 mb-4 shadow-sm">
+<h3 class="text-lg font-bold text-background-dark dark:text-background-light mb-3 flex items-center gap-2">
+    <span class="material-symbols-outlined text-primary">person</span>
+    Tu guía
+</h3>
+<div class="flex items-center gap-4">
+    <img alt="Foto del guía Carlos Ramírez" class="rounded-full h-16 w-16 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlGcNaVof1Hqb7MJra77Cpvi6JCELKIF-Hg4Owd9_lQRupxLR3PPboMJlM8ehXBnS9jDf10I4XkYAgTUlZ_Ry9HPIIbFYfKcVRVaJb5cirnCVK3Ryb7AH_zVY8AVmuKDjgt6U6NPE-v9TVkVm5v-COGY4PVhRJ6xhrNzDFRXFVcn34gnY5EQqCPjZBek2OBIfar6ZEIRExgQiYXrReSV5Cq4c3TpU80x6cd3UyU5Gpc6FMl9TUVoD95s3EeisS3ey1Wa9WdmfSNy0t"/>
+    <div class="flex-1">
+        <p class="font-bold text-background-dark dark:text-background-light">Carlos Ramírez</p>
+        <p class="text-sm text-background-dark/60 dark:text-background-light/60">Guía local experto · Español/Inglés</p>
+        <div class="flex items-center gap-1 mt-1">
+            <span class="material-symbols-outlined text-primary text-sm">star</span>
+            <span class="text-sm font-bold text-background-dark dark:text-background-light">4.9</span>
+            <span class="text-xs text-background-dark/50 dark:text-background-light/50">(120 tours)</span>
+        </div>
+    </div>
+    <button class="flex items-center justify-center rounded-full h-12 w-12 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+        <span class="material-symbols-outlined">chat</span>
+    </button>
+</div>
+</div>
+
+<!-- Opciones adicionales -->
+<div class="space-y-2">
+<h3 class="text-lg font-bold text-background-dark dark:text-background-light mb-2">Opciones</h3>
+<a href="mapa.html" class="flex items-center w-full gap-4 p-4 rounded-xl bg-white dark:bg-zinc-800 text-left shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-primary">map</span>
+<span class="flex-1 font-medium text-background-dark dark:text-background-light">Ver ruta en mapa</span>
+<span class="material-symbols-outlined text-background-dark/40 dark:text-background-light/40">chevron_right</span>
+</a>
+<button class="flex items-center w-full gap-4 p-4 rounded-xl bg-white dark:bg-zinc-800 text-left shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-primary">calendar_add_on</span>
+<span class="flex-1 font-medium text-background-dark dark:text-background-light">Agregar a calendario</span>
+<span class="material-symbols-outlined text-background-dark/40 dark:text-background-light/40">chevron_right</span>
+</button>
+<button class="flex items-center w-full gap-4 p-4 rounded-xl bg-white dark:bg-zinc-800 text-left shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-primary">group</span>
+<span class="flex-1 font-medium text-background-dark dark:text-background-light">Compartir con tu grupo</span>
+<span class="material-symbols-outlined text-background-dark/40 dark:text-background-light/40">chevron_right</span>
+</button>
+<button class="flex items-center w-full gap-4 p-4 rounded-xl bg-white dark:bg-zinc-800 text-left shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-primary">download</span>
+<span class="flex-1 font-medium text-background-dark dark:text-background-light">Ver instrucciones offline</span>
+<span class="material-symbols-outlined text-background-dark/40 dark:text-background-light/40">chevron_right</span>
+</button>
+</div>
+</main>
+</div>
+
+<!-- Footer con navegación -->
+<footer class="fixed bottom-0 left-0 right-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-background-dark/10 dark:border-background-light/10">
+<nav class="max-w-sm mx-auto flex justify-around items-center h-16">
+<a class="flex flex-col items-center gap-0.5 text-background-dark/60 dark:text-background-light/60 hover:text-primary transition-colors" href="home.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-background-dark/60 dark:text-background-light/60 hover:text-primary transition-colors" href="mapa.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">map</span>
+<span class="text-xs">Mapa</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-primary" href="confirmacion.html">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-xs font-bold">Reservas</span>
+</a>
+<a class="flex flex-col items-center gap-0.5 text-background-dark/60 dark:text-background-light/60 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs">Perfil</span>
+</a>
+</nav>
+</footer>
+</div>
+</body></html>

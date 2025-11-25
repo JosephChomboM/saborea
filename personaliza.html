@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SABOREA - Personaliza tu Tour</title>
+<meta name="description" content="Personaliza tu tour gastronómico: elige tu plan, dieta, grupo y horario.">
+<meta name="theme-color" content="#f27f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Plus+Jakarta+Sans:wght@400;500;700;800" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f27f0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#221910",
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+</script>
+<style>
+    body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        min-height: max(884px, 100dvh);
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .text-light { color: #3f332a }
+    .text-dark { color: #e5e1dc }
+    .dark .text-light { color: #e5e1dc }
+    .dark .text-dark { color: #3f332a }
+    .bg-subtle-light { background-color: #edeae6 }
+    .dark .bg-subtle-light { background-color: #3f332a }
+    .border-light { border-color: #e5e1dc }
+    .dark .border-light { border-color: #3f332a }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col min-h-screen max-w-sm mx-auto">
+<header class="sticky top-0 z-10 bg-background-light dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<a href="detalle.html" class="text-light dark:text-dark">
+<span class="material-symbols-outlined">arrow_back</span>
+</a>
+<h1 class="flex-1 text-lg font-bold text-center text-light dark:text-dark mr-8">Personaliza tu Tour</h1>
+</div>
+</header>
+<main class="flex-grow px-4 pb-48 space-y-6">
+<!-- Selector de plan -->
+<section>
+<h2 class="text-xl font-bold text-light dark:text-dark mb-3">Elige tu Plan</h2>
+<div class="space-y-3">
+<label class="flex gap-4 rounded-xl border border-light dark:border-light p-4 has-[:checked]:bg-primary/20 has-[:checked]:border-primary transition-all cursor-pointer">
+<div class="flex-grow">
+<p class="font-bold text-light dark:text-dark">Tour Básico</p>
+<p class="text-sm text-dark dark:text-light">3 paradas · Degustaciones · Guía bilingüe</p>
+<p class="text-primary font-bold mt-1">USD 55</p>
+</div>
+<input checked="" class="h-5 w-5 shrink-0 appearance-none rounded-full border-2 border-light dark:border-light bg-transparent checked:bg-primary checked:border-primary focus:outline-none mt-1" name="tour" type="radio" value="basico"/>
+</label>
+<label class="flex gap-4 rounded-xl border border-light dark:border-light p-4 has-[:checked]:bg-primary/20 has-[:checked]:border-primary transition-all cursor-pointer">
+<div class="flex-grow">
+<p class="font-bold text-light dark:text-dark flex items-center gap-2">Tour Premium <span class="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full">POPULAR</span></p>
+<p class="text-sm text-dark dark:text-light">5 paradas · Transporte privado · Souvenir · Guía foodie</p>
+<p class="text-primary font-bold mt-1">USD 85</p>
+</div>
+<input class="h-5 w-5 shrink-0 appearance-none rounded-full border-2 border-light dark:border-light bg-transparent checked:bg-primary checked:border-primary focus:outline-none mt-1" name="tour" type="radio" value="premium"/>
+</label>
+</div>
+</section>
+
+<!-- Selecciona tu dieta -->
+<section>
+<h2 class="text-xl font-bold text-light dark:text-dark mb-3">Selecciona tu Dieta</h2>
+<div class="flex flex-wrap gap-2">
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="dieta" type="radio" value="vegetariano"/>
+<span class="block rounded-full border border-light dark:border-light px-4 py-2 text-sm font-medium text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">Vegetariano</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="dieta" type="radio" value="vegano"/>
+<span class="block rounded-full border border-light dark:border-light px-4 py-2 text-sm font-medium text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">Vegano</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="dieta" type="radio" value="singluten"/>
+<span class="block rounded-full border border-light dark:border-light px-4 py-2 text-sm font-medium text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">Sin Gluten</span>
+</label>
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="dieta" type="radio" value="mediterraneo"/>
+<span class="block rounded-full border border-light dark:border-light px-4 py-2 text-sm font-medium text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">Mediterráneo</span>
+</label>
+<label class="relative cursor-pointer">
+<input checked="" class="peer sr-only" name="dieta" type="radio" value="sinrestricciones"/>
+<span class="block rounded-full border border-light dark:border-light px-4 py-2 text-sm font-medium text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">Sin restricciones</span>
+</label>
+</div>
+</section>
+
+<!-- Grupo -->
+<section>
+<h2 class="text-xl font-bold text-light dark:text-dark mb-3">Grupo</h2>
+<div class="bg-subtle-light dark:bg-subtle-light p-4 rounded-xl">
+<p class="text-sm text-dark dark:text-light mb-3">Grupo pequeño (hasta 8 personas)</p>
+<div class="flex items-center justify-between">
+<span class="font-medium text-light dark:text-dark">Número de personas</span>
+<div class="flex items-center gap-4">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary" onclick="decrementPersons()">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span id="personCount" class="text-xl font-bold text-light dark:text-dark w-6 text-center">2</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white" onclick="incrementPersons()">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Fecha -->
+<section>
+<h2 class="text-xl font-bold text-light dark:text-dark mb-3">Fecha</h2>
+<div class="bg-subtle-light dark:bg-subtle-light p-4 rounded-xl">
+<div class="flex items-center justify-between mb-4">
+<button class="text-light dark:text-dark"><span class="material-symbols-outlined">chevron_left</span></button>
+<p class="font-bold text-light dark:text-dark">Diciembre 2025</p>
+<button class="text-light dark:text-dark"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="grid grid-cols-7 gap-y-1 text-center text-sm">
+<div class="font-bold text-dark dark:text-light text-xs">D</div>
+<div class="font-bold text-dark dark:text-light text-xs">L</div>
+<div class="font-bold text-dark dark:text-light text-xs">M</div>
+<div class="font-bold text-dark dark:text-light text-xs">X</div>
+<div class="font-bold text-dark dark:text-light text-xs">J</div>
+<div class="font-bold text-dark dark:text-light text-xs">V</div>
+<div class="font-bold text-dark dark:text-light text-xs">S</div>
+<!-- Días del calendario -->
+<div class="col-start-2 h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">1</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">2</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">3</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">4</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">5</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">6</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">7</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">8</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">9</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full bg-primary text-white font-bold text-sm">10</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">11</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">12</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">13</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">14</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">15</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">16</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">17</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">18</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">19</div>
+<div class="h-9 w-9 flex items-center justify-center rounded-full text-light dark:text-dark text-sm">20</div>
+</div>
+</div>
+</section>
+
+<!-- Horario -->
+<section>
+<h2 class="text-xl font-bold text-light dark:text-dark mb-3">Horario</h2>
+<div class="flex gap-2">
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="horario" type="radio" value="manana" checked/>
+<span class="flex flex-col items-center gap-1 rounded-xl border border-light dark:border-light p-3 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">wb_sunny</span>
+<span class="text-sm font-bold">Mañana</span>
+<span class="text-xs">10:00 AM</span>
+</span>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="horario" type="radio" value="tarde"/>
+<span class="flex flex-col items-center gap-1 rounded-xl border border-light dark:border-light p-3 text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">wb_twilight</span>
+<span class="text-sm font-bold">Tarde</span>
+<span class="text-xs">3:00 PM</span>
+</span>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="horario" type="radio" value="expres"/>
+<span class="flex flex-col items-center gap-1 rounded-xl border border-light dark:border-light p-3 text-dark dark:text-light peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">bolt</span>
+<span class="text-sm font-bold">Exprés</span>
+<span class="text-xs">1 hora</span>
+</span>
+</label>
+</div>
+</section>
+</main>
+
+<!-- Panel de precio y botones -->
+<div class="fixed bottom-16 left-0 right-0 bg-background-light dark:bg-background-dark z-10 border-t border-light dark:border-light">
+<div class="max-w-sm mx-auto p-4">
+<div class="flex items-center justify-between mb-3">
+<div>
+<p class="text-xs text-dark dark:text-light">Precio total</p>
+<p class="text-2xl font-extrabold text-light dark:text-dark">USD 110</p>
+</div>
+<p class="text-xs text-dark dark:text-light">2 personas × USD 55</p>
+</div>
+<div class="flex gap-3">
+<a href="mapa.html" class="flex-1 py-3 px-4 rounded-xl bg-subtle-light dark:bg-subtle-light text-light dark:text-dark font-bold text-center hover:opacity-80 transition-opacity">
+Ver recorrido
+</a>
+<a href="resumen.html" class="flex-1 py-3 px-4 rounded-xl bg-primary text-white font-bold text-center hover:bg-primary/90 transition-colors">
+Continuar a pago
+</a>
+</div>
+</div>
+</div>
+
+<!-- Footer con navegación -->
+<footer class="fixed bottom-0 left-0 right-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-background-dark/10 dark:border-background-light/10 z-10">
+<nav class="max-w-sm mx-auto flex justify-around p-2">
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="home.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="mapa.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">map</span>
+<span class="text-xs">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="confirmacion.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">bookmark</span>
+<span class="text-xs">Reservas</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs">Perfil</span>
+</a>
+</nav>
+</footer>
+</div>
+
+<script>
+let personCount = 2;
+const pricePerPerson = 55;
+
+function updatePrice() {
+    document.getElementById('personCount').textContent = personCount;
+}
+
+function incrementPersons() {
+    if (personCount < 8) {
+        personCount++;
+        updatePrice();
+    }
+}
+
+function decrementPersons() {
+    if (personCount > 1) {
+        personCount--;
+        updatePrice();
+    }
+}
+</script>
+</body></html>

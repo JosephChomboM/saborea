@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SABOREA - Detalle del Tour</title>
+<meta name="description" content="Descubre los detalles de nuestros tours gastronómicos. Incluye comida, bebidas, transporte y propinas.">
+<meta name="theme-color" content="#f27f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#f27f0d",
+                    "background-light": "#f8f7f5",
+                    "background-dark": "#221910",
+                    "text-light": "#181411",
+                    "text-dark": "#f8f7f5",
+                    "text-muted-light": "#8a7560",
+                    "text-muted-dark": "#a19487",
+                    "border-light": "#e6e0db",
+                    "border-dark": "#443d36",
+                    "surface-light": "#f5f2f0",
+                    "surface-dark": "#30261c",
+                },
+                fontFamily: {
+                    "display": ["Plus Jakarta Sans"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        min-height: max(884px, 100dvh);
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full flex-col justify-between max-w-sm mx-auto">
+<main class="flex-grow pb-44">
+<!-- Header con imagen -->
+<div class="relative">
+    <a href="home.html" class="absolute top-4 left-4 z-10 rounded-full bg-background-light/70 p-2 text-text-light backdrop-blur-sm dark:bg-background-dark/70 dark:text-text-dark">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+    <button class="absolute top-4 right-4 z-10 rounded-full bg-background-light/70 p-2 text-text-light backdrop-blur-sm dark:bg-background-dark/70 dark:text-text-dark">
+        <span class="material-symbols-outlined">share</span>
+    </button>
+    <div class="h-72 w-full bg-cover bg-center" style='background-image: url("https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?w=200&h=200&fit=crop");'></div>
+</div>
+
+<div class="space-y-6 p-4">
+    <!-- Título y precio -->
+    <div>
+        <h1 class="text-2xl font-bold text-text-light dark:text-text-dark">Tour Criollo en Barranco</h1>
+        <p class="text-text-muted-light dark:text-text-muted-dark mt-1">3 paradas · 2.5 h · USD 55</p>
+    </div>
+
+    <!-- Qué incluye -->
+    <div class="space-y-3">
+        <h3 class="text-lg font-bold text-text-light dark:text-text-dark">Qué incluye</h3>
+        <div class="grid grid-cols-4 gap-3">
+            <div class="flex flex-col items-center gap-2">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-light text-primary dark:bg-surface-dark">
+                    <span class="material-symbols-outlined">restaurant</span>
+                </div>
+                <span class="text-xs font-medium text-text-light dark:text-text-dark text-center">Comida</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-light text-primary dark:bg-surface-dark">
+                    <span class="material-symbols-outlined">local_bar</span>
+                </div>
+                <span class="text-xs font-medium text-text-light dark:text-text-dark text-center">Bebidas</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-light text-primary dark:bg-surface-dark">
+                    <span class="material-symbols-outlined">directions_car</span>
+                </div>
+                <span class="text-xs font-medium text-text-light dark:text-text-dark text-center">Transporte</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-light text-primary dark:bg-surface-dark">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+                <span class="text-xs font-medium text-text-light dark:text-text-dark text-center">Propinas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selectores compactos -->
+    <div class="grid grid-cols-2 gap-4">
+        <!-- Idioma -->
+        <div class="space-y-2">
+            <h3 class="text-sm font-bold text-text-light dark:text-text-dark">Idioma</h3>
+            <div class="flex h-10 items-center rounded-lg bg-surface-light p-1 dark:bg-surface-dark">
+                <label class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-medium text-text-muted-light has-[:checked]:bg-background-light has-[:checked]:text-text-light has-[:checked]:shadow-sm dark:text-text-muted-dark dark:has-[:checked]:bg-background-dark dark:has-[:checked]:text-text-dark">
+                    <input checked="" class="sr-only" name="language" type="radio" value="Spanish"/>Español
+                </label>
+                <label class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-medium text-text-muted-light has-[:checked]:bg-background-light has-[:checked]:text-text-light has-[:checked]:shadow-sm dark:text-text-muted-dark dark:has-[:checked]:bg-background-dark dark:has-[:checked]:text-text-dark">
+                    <input class="sr-only" name="language" type="radio" value="English"/>Inglés
+                </label>
+            </div>
+        </div>
+        <!-- Horario -->
+        <div class="space-y-2">
+            <h3 class="text-sm font-bold text-text-light dark:text-text-dark">Horario</h3>
+            <div class="flex h-10 items-center rounded-lg bg-surface-light p-1 dark:bg-surface-dark">
+                <label class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-medium text-text-muted-light has-[:checked]:bg-background-light has-[:checked]:text-text-light has-[:checked]:shadow-sm dark:text-text-muted-dark dark:has-[:checked]:bg-background-dark dark:has-[:checked]:text-text-dark">
+                    <input checked="" class="sr-only" name="time" type="radio" value="Morning"/>Mañana
+                </label>
+                <label class="flex-1 cursor-pointer rounded-md py-1.5 text-center text-xs font-medium text-text-muted-light has-[:checked]:bg-background-light has-[:checked]:text-text-light has-[:checked]:shadow-sm dark:text-text-muted-dark dark:has-[:checked]:bg-background-dark dark:has-[:checked]:text-text-dark">
+                    <input class="sr-only" name="time" type="radio" value="Afternoon"/>Tarde
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Descripción breve -->
+    <div class="space-y-2">
+        <h3 class="text-lg font-bold text-text-light dark:text-text-dark">Sobre este tour</h3>
+        <p class="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+            Descubre los sabores auténticos de Barranco con un guía local experto. Visitarás huariques tradicionales, probarás ceviche fresco, anticuchos a la parrilla y terminarás con un pisco sour en un bar histórico.
+        </p>
+    </div>
+
+    <!-- Reseñas del tour -->
+    <div class="space-y-4">
+        <h3 class="text-lg font-bold text-text-light dark:text-text-dark">Reseñas del tour</h3>
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-2xl text-primary">star</span>
+                <span class="text-2xl font-bold text-text-light dark:text-text-dark">4.8</span>
+            </div>
+            <span class="text-text-muted-light dark:text-text-muted-dark">(25 reseñas)</span>
+        </div>
+        
+        <!-- Comentario destacado -->
+        <div class="rounded-xl border border-border-light bg-surface-light p-4 dark:border-border-dark dark:bg-surface-dark">
+            <div class="flex items-start gap-3">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlGcNaVof1Hqb7MJra77Cpvi6JCELKIF-Hg4Owd9_lQRupxLR3PPboMJlM8ehXBnS9jDf10I4XkYAgTUlZ_Ry9HPIIbFYfKcVRVaJb5cirnCVK3Ryb7AH_zVY8AVmuKDjgt6U6NPE-v9TVkVm5v-COGY4PVhRJ6xhrNzDFRXFVcn34gnY5EQqCPjZBek2OBIfar6ZEIRExgQiYXrReSV5Cq4c3TpU80x6cd3UyU5Gpc6FMl9TUVoD95s3EeisS3ey1Wa9WdmfSNy0t" class="w-10 h-10 rounded-full object-cover" alt="María">
+                <div class="flex-1">
+                    <p class="italic text-text-light dark:text-text-dark text-sm">"El guía Carlos hizo que amara el ceviche. Auténtico, seguro y divertido. ¡La mejor experiencia gastronómica!"</p>
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-2">— María, EE. UU.</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="w-full rounded-xl border border-border-light bg-surface-light py-3 text-center font-bold text-text-light dark:border-border-dark dark:bg-surface-dark dark:text-text-dark hover:bg-surface-light/80 transition-colors">
+            Ver todas las reseñas
+        </button>
+    </div>
+</div>
+</main>
+
+<!-- Botones de acción -->
+<div class="fixed bottom-16 left-0 right-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-t border-border-light dark:border-border-dark">
+    <div class="max-w-sm mx-auto flex gap-3 p-4">
+        <a href="personaliza.html" class="flex-1 rounded-xl bg-primary py-4 text-center font-bold text-white hover:bg-primary/90 transition-colors">
+            Reservar
+        </a>
+        <a href="mapa.html" class="flex-1 rounded-xl bg-surface-light py-4 text-center font-bold text-text-light dark:bg-surface-dark dark:text-text-dark hover:opacity-80 transition-opacity">
+            Ver en el mapa
+        </a>
+    </div>
+</div>
+
+<!-- Footer con navegación -->
+<footer class="fixed bottom-0 left-0 right-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-border-light dark:border-border-dark z-20">
+<nav class="max-w-sm mx-auto flex justify-around p-2">
+<a class="flex flex-col items-center justify-center w-1/4 text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors" href="home.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors" href="mapa.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">map</span>
+<span class="text-xs">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors" href="confirmacion.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">bookmark</span>
+<span class="text-xs">Reservas</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs">Perfil</span>
+</a>
+</nav>
+</footer>
+</div>
+</body></html>

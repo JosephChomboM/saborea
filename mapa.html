@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SABOREA - Mapa del Tour</title>
+<meta name="description" content="Explora la ruta del tour gastronómico en un mapa interactivo.">
+<meta name="theme-color" content="#f27f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f27f0d",
+            "background-light": "#f8f7f5",
+            "background-dark": "#221910",
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      min-height: 100dvh;
+      margin: 0;
+      overflow: hidden;
+    }
+    .stop-card {
+      transition: all 0.3s ease;
+    }
+    .stop-card.active {
+      background: linear-gradient(135deg, #f27f0d20, #f27f0d10);
+      border: 2px solid #f27f0d;
+    }
+    .custom-marker {
+      background: none;
+      border: none;
+    }
+    .marker-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .marker-icon:hover {
+      transform: scale(1.15);
+    }
+    .marker-meeting {
+      background: #ef4444;
+      color: white;
+    }
+    .marker-stop {
+      background: #3b82f6;
+      color: white;
+    }
+    .marker-active {
+      background: #f27f0d !important;
+      transform: scale(1.2);
+      z-index: 1000 !important;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+      padding: 0;
+    }
+    .leaflet-popup-content {
+      margin: 0;
+      min-width: 180px;
+    }
+    .toast {
+      animation: slideUp 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; }
+    }
+    /* Layout principal */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 24rem;
+      margin: 0 auto;
+      position: relative;
+    }
+    .map-section {
+      flex: 1;
+      position: relative;
+      min-height: 0;
+    }
+    .bottom-panel {
+      background: #f8f7f5;
+      border-radius: 1.5rem 1.5rem 0 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      max-height: 40vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .dark .bottom-panel {
+      background: #221910;
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="app-container">
+<!-- Sección del mapa -->
+<div class="map-section">
+    <!-- Mapa -->
+    <div id="map" class="absolute inset-0"></div>
+    
+    <!-- Header flotante -->
+    <header class="absolute top-0 left-0 right-0 z-[1000] p-3">
+        <div class="flex items-center justify-between">
+            <a href="personaliza.html" class="bg-white dark:bg-zinc-800 p-2.5 rounded-full shadow-md">
+                <span class="material-symbols-outlined text-background-dark dark:text-background-light text-xl">arrow_back</span>
+            </a>
+            <div class="bg-white dark:bg-zinc-800 px-4 py-2 rounded-full shadow-md">
+                <h1 class="font-bold text-background-dark dark:text-background-light text-sm">Tour Criollo en Barranco</h1>
+            </div>
+            <div class="w-10"></div>
+        </div>
+    </header>
+
+    <!-- Botones flotantes (lado derecho) -->
+    <div class="absolute top-16 right-3 flex flex-col gap-2 z-[1000]">
+        <button id="locationBtn" onclick="centerOnUser()" class="bg-white dark:bg-zinc-800 p-2.5 rounded-full shadow-md hover:shadow-lg transition-all">
+            <span class="material-symbols-outlined text-background-dark dark:text-background-light text-xl">my_location</span>
+        </button>
+        <button id="zoomInBtn" onclick="zoomIn()" class="bg-white dark:bg-zinc-800 p-2.5 rounded-full shadow-md hover:shadow-lg transition-all">
+            <span class="material-symbols-outlined text-background-dark dark:text-background-light text-xl">add</span>
+        </button>
+        <button id="zoomOutBtn" onclick="zoomOut()" class="bg-white dark:bg-zinc-800 p-2.5 rounded-full shadow-md hover:shadow-lg transition-all">
+            <span class="material-symbols-outlined text-background-dark dark:text-background-light text-xl">remove</span>
+        </button>
+    </div>
+
+    <!-- Info de ruta (esquina superior izquierda, debajo del header) -->
+    <div id="routeInfo" class="absolute top-16 left-3 z-[1000]">
+        <div class="bg-white dark:bg-zinc-800 rounded-xl shadow-md p-2.5 flex items-center gap-2">
+            <div class="bg-primary/20 p-1.5 rounded-full">
+                <span class="material-symbols-outlined text-primary text-lg">directions_walk</span>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-background-dark dark:text-background-light">1.2 km</p>
+                <p class="text-[10px] text-background-dark/60 dark:text-background-light/60">25 min</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panel inferior -->
+<div class="bottom-panel">
+    <!-- Handle -->
+    <div class="flex justify-center py-2">
+        <div class="w-10 h-1 bg-background-dark/20 dark:bg-background-light/20 rounded-full"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="px-4 pb-2 flex gap-2">
+        <button onclick="showTab('itinerary')" id="tabItinerary" class="flex-1 py-2 px-3 rounded-full text-sm font-bold bg-primary text-white transition-all">
+            Itinerario
+        </button>
+        <button onclick="showTab('info')" id="tabInfo" class="flex-1 py-2 px-3 rounded-full text-sm font-bold bg-background-dark/10 dark:bg-background-light/10 text-background-dark dark:text-background-light transition-all">
+            Info del tour
+        </button>
+    </div>
+
+    <!-- Contenido scrolleable -->
+    <div class="flex-1 overflow-y-auto px-4 pb-2">
+        <!-- Tab Itinerario -->
+        <div id="contentItinerary">
+            <!-- Punto de encuentro -->
+            <div class="flex items-center gap-2 mb-2 p-2 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <div class="bg-red-500 p-1.5 rounded-full">
+                    <span class="material-symbols-outlined text-white text-sm">flag</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-background-dark dark:text-background-light truncate">Punto de encuentro</p>
+                    <p class="text-xs text-background-dark/60 dark:text-background-light/60">Plaza San Francisco, Barranco</p>
+                </div>
+                <button onclick="focusOnMarker(0)" class="bg-primary/20 p-1.5 rounded-full shrink-0">
+                    <span class="material-symbols-outlined text-primary text-sm">center_focus_strong</span>
+                </button>
+            </div>
+
+            <!-- Lista de paradas -->
+            <div class="space-y-2">
+                <!-- Parada 1 -->
+                <div class="stop-card flex items-center gap-2 p-2.5 bg-white dark:bg-zinc-800 rounded-xl shadow-sm cursor-pointer" data-stop="1" onclick="selectStop(1)">
+                    <div class="relative shrink-0">
+                        <span class="absolute -top-1 -left-1 bg-blue-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+                        <img alt="Ceviche" class="w-11 h-11 object-cover rounded-lg" src="https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?w=100&h=100&fit=crop"/>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-background-dark dark:text-background-light text-sm truncate">Cevicheria El Muelle</h3>
+                        <p class="text-xs text-background-dark/60 dark:text-background-light/60">Ceviche tradicional</p>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <span class="material-symbols-outlined text-xs text-primary">star</span>
+                        <span class="font-bold text-xs text-background-dark dark:text-background-light">4.8</span>
+                    </div>
+                </div>
+
+                <!-- Conector -->
+                <div class="flex items-center gap-2 pl-5">
+                    <div class="w-0.5 h-3 bg-blue-300 rounded-full"></div>
+                    <span class="text-[10px] text-background-dark/40 dark:text-background-light/40">5 min - 300m</span>
+                </div>
+
+                <!-- Parada 2 -->
+                <div class="stop-card flex items-center gap-2 p-2.5 bg-white dark:bg-zinc-800 rounded-xl shadow-sm cursor-pointer" data-stop="2" onclick="selectStop(2)">
+                    <div class="relative shrink-0">
+                        <span class="absolute -top-1 -left-1 bg-blue-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+                        <img alt="Anticuchos" class="w-11 h-11 object-cover rounded-lg" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100&h=100&fit=crop"/>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-background-dark dark:text-background-light text-sm truncate">Anticucheria Dona Julia</h3>
+                        <p class="text-xs text-background-dark/60 dark:text-background-light/60">Brochetas a la parrilla</p>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <span class="material-symbols-outlined text-xs text-primary">star</span>
+                        <span class="font-bold text-xs text-background-dark dark:text-background-light">4.9</span>
+                    </div>
+                </div>
+
+                <!-- Conector -->
+                <div class="flex items-center gap-2 pl-5">
+                    <div class="w-0.5 h-3 bg-blue-300 rounded-full"></div>
+                    <span class="text-[10px] text-background-dark/40 dark:text-background-light/40">8 min - 450m</span>
+                </div>
+
+                <!-- Parada 3 -->
+                <div class="stop-card flex items-center gap-2 p-2.5 bg-white dark:bg-zinc-800 rounded-xl shadow-sm cursor-pointer" data-stop="3" onclick="selectStop(3)">
+                    <div class="relative shrink-0">
+                        <span class="absolute -top-1 -left-1 bg-blue-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                        <img alt="Pisco Sour" class="w-11 h-11 object-cover rounded-lg" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=100&h=100&fit=crop"/>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-background-dark dark:text-background-light text-sm truncate">Bar El Capitan</h3>
+                        <p class="text-xs text-background-dark/60 dark:text-background-light/60">Pisco Sour clasico</p>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <span class="material-symbols-outlined text-xs text-primary">star</span>
+                        <span class="font-bold text-xs text-background-dark dark:text-background-light">4.7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Info -->
+        <div id="contentInfo" class="hidden space-y-3">
+            <div class="bg-white dark:bg-zinc-800 rounded-xl p-3">
+                <h3 class="font-bold text-background-dark dark:text-background-light text-sm mb-2">Tu guia</h3>
+                <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" class="w-10 h-10 rounded-full object-cover" alt="Guia">
+                    <div class="flex-1">
+                        <p class="font-bold text-sm text-background-dark dark:text-background-light">Carlos Ramirez</p>
+                        <p class="text-xs text-background-dark/60 dark:text-background-light/60">4.9 - 120 tours</p>
+                    </div>
+                    <button class="bg-primary text-white p-2 rounded-full">
+                        <span class="material-symbols-outlined text-lg">call</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-zinc-800 rounded-xl p-3">
+                <h3 class="font-bold text-background-dark dark:text-background-light text-sm mb-2">Resumen</h3>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div>
+                        <p class="text-lg font-bold text-primary">3</p>
+                        <p class="text-[10px] text-background-dark/60 dark:text-background-light/60">Paradas</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-primary">2.5h</p>
+                        <p class="text-[10px] text-background-dark/60 dark:text-background-light/60">Duracion</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-primary">1.2km</p>
+                        <p class="text-[10px] text-background-dark/60 dark:text-background-light/60">Distancia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boton de accion -->
+    <div class="px-4 pb-2 pt-2">
+        <a href="resumen.html" class="block w-full bg-primary text-white font-bold py-3.5 rounded-xl text-base shadow-lg shadow-primary/30 hover:bg-primary/90 transition-all text-center">
+            Continuar al resumen
+        </a>
+    </div>
+</div>
+
+<!-- Footer con navegación -->
+<footer class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-background-dark/10 dark:border-background-light/10">
+<nav class="flex justify-around p-2">
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="home.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-primary" href="mapa.html">
+<span class="material-symbols-outlined text-3xl">map</span>
+<span class="text-xs font-bold">Mapa</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="confirmacion.html">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">bookmark</span>
+<span class="text-xs">Reservas</span>
+</a>
+<a class="flex flex-col items-center justify-center w-1/4 text-background-dark/70 dark:text-background-light/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 0">person</span>
+<span class="text-xs">Perfil</span>
+</a>
+</nav>
+</footer>
+</div>
+
+<!-- Toast notifications -->
+<div id="toastContainer" class="fixed bottom-24 left-4 right-4 z-[2000] flex flex-col gap-2 pointer-events-none max-w-sm mx-auto"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Coordenadas de Barranco, Lima
+const barrancoCenter = [-12.1464, -77.0219];
+
+// Datos de las paradas
+const stops = [
+    { id: 0, name: "Punto de encuentro", desc: "Plaza San Francisco", lat: -12.1450, lng: -77.0225, type: "meeting" },
+    { id: 1, name: "Cevicheria El Muelle", desc: "Ceviche tradicional", lat: -12.1458, lng: -77.0210, type: "stop", rating: 4.8 },
+    { id: 2, name: "Anticucheria Dona Julia", desc: "Brochetas a la parrilla", lat: -12.1475, lng: -77.0200, type: "stop", rating: 4.9 },
+    { id: 3, name: "Bar El Capitan", desc: "Pisco Sour clasico", lat: -12.1490, lng: -77.0215, type: "stop", rating: 4.7 }
+];
+
+// Inicializar mapa
+const map = L.map('map', {
+    zoomControl: false,
+    attributionControl: false
+}).setView(barrancoCenter, 16);
+
+// Añadir capa de tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+}).addTo(map);
+
+// Crear marcadores personalizados
+const markers = [];
+stops.forEach((stop, index) => {
+    const markerHtml = stop.type === 'meeting' 
+        ? '<div class="marker-icon marker-meeting"><span class="material-symbols-outlined" style="font-size:16px">flag</span></div>'
+        : '<div class="marker-icon marker-stop" data-id="' + stop.id + '">' + stop.id + '</div>';
+    
+    const icon = L.divIcon({
+        className: 'custom-marker',
+        html: markerHtml,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+    });
+    
+    const marker = L.marker([stop.lat, stop.lng], { icon }).addTo(map);
+    
+    // Popup con info
+    const popupContent = '<div class="p-3"><h3 class="font-bold text-sm">' + stop.name + '</h3><p class="text-xs text-gray-500">' + stop.desc + '</p>' + (stop.rating ? '<div class="flex items-center gap-1 mt-1"><span class="text-yellow-500">*</span><span class="text-xs font-bold">' + stop.rating + '</span></div>' : '') + '</div>';
+    marker.bindPopup(popupContent);
+    
+    marker.on('click', function() {
+        if (stop.type === 'stop') {
+            selectStop(stop.id);
+        }
+    });
+    
+    markers.push(marker);
+});
+
+// Dibujar ruta entre paradas
+const routeCoords = stops.map(function(s) { return [s.lat, s.lng]; });
+const routeLine = L.polyline(routeCoords, {
+    color: '#f27f0d',
+    weight: 4,
+    opacity: 0.8,
+    dashArray: '10, 10',
+    lineCap: 'round'
+}).addTo(map);
+
+// Ajustar vista para mostrar toda la ruta
+map.fitBounds(routeLine.getBounds(), { padding: [60, 60] });
+
+// Variables de estado
+let activeStop = null;
+
+// Funcion para seleccionar parada
+function selectStop(stopId) {
+    // Quitar seleccion anterior
+    document.querySelectorAll('.stop-card').forEach(function(card) {
+        card.classList.remove('active');
+    });
+    document.querySelectorAll('.marker-icon').forEach(function(m) {
+        m.classList.remove('marker-active');
+    });
+    
+    // Activar nueva seleccion
+    const card = document.querySelector('[data-stop="' + stopId + '"]');
+    if (card) {
+        card.classList.add('active');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    // Activar marcador
+    const markerEl = document.querySelector('.marker-icon[data-id="' + stopId + '"]');
+    if (markerEl) {
+        markerEl.classList.add('marker-active');
+    }
+    
+    // Centrar mapa en la parada
+    const stop = stops.find(function(s) { return s.id === stopId; });
+    if (stop) {
+        map.flyTo([stop.lat, stop.lng], 17, { duration: 0.5 });
+        markers[stopId].openPopup();
+    }
+    
+    activeStop = stopId;
+}
+
+// Funcion para centrar en marcador
+function focusOnMarker(index) {
+    const stop = stops[index];
+    map.flyTo([stop.lat, stop.lng], 17, { duration: 0.5 });
+    markers[index].openPopup();
+    showToast('Mostrando: ' + stop.name);
+}
+
+// Funciones de control del mapa
+function zoomIn() {
+    map.zoomIn();
+}
+
+function zoomOut() {
+    map.zoomOut();
+}
+
+function centerOnUser() {
+    showToast('Buscando ubicacion...');
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(pos) {
+                const userLat = pos.coords.latitude;
+                const userLng = pos.coords.longitude;
+                map.flyTo([userLat, userLng], 17);
+                showToast('Ubicacion encontrada');
+            },
+            function() {
+                map.flyTo(barrancoCenter, 16);
+                showToast('Mostrando ubicacion del tour');
+            }
+        );
+    }
+}
+
+// Tabs
+function showTab(tab) {
+    const tabItinerary = document.getElementById('tabItinerary');
+    const tabInfo = document.getElementById('tabInfo');
+    const contentItinerary = document.getElementById('contentItinerary');
+    const contentInfo = document.getElementById('contentInfo');
+    
+    if (tab === 'itinerary') {
+        tabItinerary.classList.add('bg-primary', 'text-white');
+        tabItinerary.classList.remove('bg-background-dark/10', 'dark:bg-background-light/10', 'text-background-dark', 'dark:text-background-light');
+        tabInfo.classList.remove('bg-primary', 'text-white');
+        tabInfo.classList.add('bg-background-dark/10', 'dark:bg-background-light/10', 'text-background-dark', 'dark:text-background-light');
+        contentItinerary.classList.remove('hidden');
+        contentInfo.classList.add('hidden');
+    } else {
+        tabInfo.classList.add('bg-primary', 'text-white');
+        tabInfo.classList.remove('bg-background-dark/10', 'dark:bg-background-light/10', 'text-background-dark', 'dark:text-background-light');
+        tabItinerary.classList.remove('bg-primary', 'text-white');
+        tabItinerary.classList.add('bg-background-dark/10', 'dark:bg-background-light/10', 'text-background-dark', 'dark:text-background-light');
+        contentInfo.classList.remove('hidden');
+        contentItinerary.classList.add('hidden');
+    }
+}
+
+// Toast notifications
+function showToast(message) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast bg-background-dark text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium';
+    toast.textContent = message;
+    container.appendChild(toast);
+    
+    setTimeout(function() {
+        toast.remove();
+    }, 3000);
+}
+
+// Mensaje de bienvenida
+setTimeout(function() {
+    showToast('Toca los marcadores para ver detalles');
+}, 1500);
+</script>
+</body></html>
