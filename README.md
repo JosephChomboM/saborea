@@ -6,7 +6,7 @@
 
 ## 📱 Demo en Vivo
 
-Visita la demo: **[tu-usuario.github.io/saborea](https://tu-usuario.github.io/saborea)**
+Visita la demo: **[tu-usuario.github.io/saborea](https://JosephChomboM.github.io/saborea)**
 
 ## 🎯 Descripción
 
